@@ -24,6 +24,8 @@ urlpatterns = [
     path('login/', views.login_user),
     path('login/submit', views.submit_login),
     path('logout/', views.logout_user),
+    path('agenda/novo_evento/', views.novo_evento),
+    path('agenda/novo_evento/submit', views.submit_evento),
     path('', RedirectView.as_view(url='/agenda/'))    # uma maneira de redirecionar a pagina raiz
                                                       # precisou importar from django.views.generic import RedirectView
     #path('', views.index), outra maneira de redirecionar, precisa criar uma função em views.py
