@@ -8,7 +8,11 @@
         </a>
         <ul style="font-size: 18px">
             {% for valor in chave %}
-            <li><b>Evento:</b> {{ valor.titulo }} - <b>Data:</b> {{ valor.get_data_evento }}</li>
+            <li>
+                <b>Evento:</b> {{ valor.titulo }} - <b>Data:</b> {{ valor.get_data_evento }}
+                ( <a href="novo_evento/?id={{ valor.id }}"> Editar</a>
+                / <a href="novo_evento/delete/{{ valor.id }}">Excluir</a> )
+            </li>
             {% endfor %}
         </ul>
 

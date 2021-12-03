@@ -6,6 +6,7 @@ from django.contrib.auth.models import User # importação feita para o novo cam
 class evento(models.Model):
     titulo = models.CharField(verbose_name='Título', max_length=100)
     descricao = models.TextField(verbose_name='Descrição', blank=True, null=True)
+    local = models.CharField(verbose_name='Local', blank=True, null=True, max_length=100)
     data_evento = models.DateTimeField(verbose_name='Data do Evento')
     data_criacao = models.DateTimeField(verbose_name='Data da Criação', auto_now=True)
     usuario = models.ForeignKey(User, on_delete=models.CASCADE) #criando novo campo para fazer o relacionamento com a tabela usuario do django
@@ -32,3 +33,6 @@ class evento(models.Model):
 
     def get_data_evento(self):
         return self.data_evento.strftime('%d/%m/%Y às %H:%M')
+
+    def get_data_input_evento(self):
+        return self.data_evento.strftime('%Y-%m-%dT%H:%M')
