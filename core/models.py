@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User # importação feita para o novo campo usuario da tabela evento
+from datetime import datetime
+
 # Create your models here.
 
 # Criação da tabela dentro do banco de dados
@@ -36,3 +38,9 @@ class evento(models.Model):
 
     def get_data_input_evento(self):
         return self.data_evento.strftime('%Y-%m-%dT%H:%M')
+
+    def get_evento_atrasado(self):
+        if self.data_evento < datetime.now():
+            return True
+        else:
+            return False

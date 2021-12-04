@@ -1,8 +1,11 @@
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from core.models import evento
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout # precisa para efetuar o login
 from django.contrib import messages
+from datetime import datetime, timedelta
+from django.http.response import Http404, JsonResponse
 
 # Create your views here.
 # Função para redirecionar a raiz, precisa acrescenatr redirect em from django.shortcuts import render, redirect
@@ -34,7 +37,9 @@ def lista_eventos(request):
     usuario = request.user                         ### Receber o usuario logado no Django
     #valor = evento.objects.get(id=2)              ### Uma opção para setar somente um unico registro
     #valor = evento.objects.all()                  ### Mostra todos os registro
-    valor = evento.objects.filter(usuario=usuario) ### Fltra pelo usuario logado no Django
+    data_atual = datetime.now() - timedelta(hours=1)
+    valor = evento.objects.filter(usuario=usuario, ### Fltra pelo usuario logado no Django
+                                  data_evento__gt=data_atual) # __gt siginifica se data de evento for maior que, se quiser menor que utilize __lt
     dic_evento = {'chave':valor}
     return render(request, 'agenda.html', dic_evento)
 
@@ -81,9 +86,25 @@ def submit_evento(request):
 @login_required(login_url='/login/')
 def delete_evento(request, id_evento):
     usuario = request.user
-    Evento = evento.objects.get(id=id_evento)
+    try:
+        Evento = evento.objects.get(id=id_evento)
+    except Exception:
+        raise Http404()
     if usuario == Evento.usuario:
         Evento.delete()
+    else:
+        raise Http404()
     return redirect('/')
 
+#abaixo uma maneira de passar os dados por API por exemplo
+def json_lista_evento(request, id_usuario):
+    usuario = User.objects.get(id=id_usuario)
+    Evento = evento.objects.filter(usuario=usuario).values('id', 'titulo')
+    return JsonResponse(list(Evento), safe=False)
+
+# @login_required(login_url='/login/')
+# def json_lista_evento(request):
+#     usuario = request.user
+#     Evento = evento.objects.filter(usuario=usuario).values('id', 'titulo')
+#     return JsonResponse(list(Evento), safe=False)
 

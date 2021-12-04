@@ -9,9 +9,13 @@
         <ul style="font-size: 18px">
             {% for valor in chave %}
             <li>
-                <b>Evento:</b> {{ valor.titulo }} - <b>Data:</b> {{ valor.get_data_evento }}
-                ( <a href="novo_evento/?id={{ valor.id }}"> Editar</a>
-                / <a href="novo_evento/delete/{{ valor.id }}">Excluir</a> )
+                <div style={% if valor.get_evento_atrasado %}
+                              "color:red"
+                            {% endif %}>
+                    <b>Evento:</b> {{ valor.titulo }} - <b>Data:</b> {{ valor.get_data_evento }}
+                    ( <a href="novo_evento/?id={{ valor.id }}"> Editar</a>
+                    / <a href="novo_evento/delete/{{ valor.id }}">Excluir</a> )
+                </div>
             </li>
             {% endfor %}
         </ul>
