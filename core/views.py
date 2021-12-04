@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 from django.http.response import Http404, JsonResponse
 
 # Create your views here.
-# Função para redirecionar a raiz, precisa acrescenatr redirect em from django.shortcuts import render, redirect
+# Função para redirecionar a raiz, precisa acrescentar redirect em from django.shortcuts import render, redirect
 #def index(request):
     #return redirect('/agenda/')
 
@@ -42,6 +42,15 @@ def lista_eventos(request):
                                   data_evento__gt=data_atual) # __gt siginifica se data de evento for maior que, se quiser menor que utilize __lt
     dic_evento = {'chave':valor}
     return render(request, 'agenda.html', dic_evento)
+
+@login_required(login_url='/login/')
+def lista_eventos_passado(request):
+    usuario = request.user
+    data_atual = datetime.now() - timedelta(hours=1)
+    valor = evento.objects.filter(usuario=usuario, ### Fltra pelo usuario logado no Django
+                                  data_evento__lt=data_atual) # __gt siginifica se data de evento for maior que, se quiser menor que utilize __lt
+    dic_evento = {'chave':valor}
+    return render(request, 'eventos_passado.html', dic_evento)
 
 @login_required(login_url='/login/')
 def novo_evento(request):
