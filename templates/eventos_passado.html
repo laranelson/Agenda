@@ -2,7 +2,11 @@
 
 {% block content %}
 
-        <h2>Histórico de Eventos</h2>
+         <div class="d-flex p-2 my-1 text-white rounded shadow-sm">
+                <div class="lh-1 container">
+                    <span class="fs-4">Histórico de Eventos</span>
+                </div>
+        </div>
 
     <p class="pb-3 mb-0 small lh-sm border-top">
         <ul>
@@ -11,17 +15,27 @@
                 <div style={% if valor.get_evento_atrasado %}
                               "color:red"
                             {% endif %}>
-                    <b>Evento:</b> {{ valor.titulo }} - <b>Data:</b> {{ valor.get_data_evento }}
-                    ( <a href="../novo_evento/?id={{ valor.id }}"> Editar</a>
-                    / <a href="../novo_evento/delete/{{ valor.id }}">Excluir</a> )
+                    <b>Evento:</b> {{ valor.titulo }} - Data: {{ valor.get_data_evento }}
+                                <a href="novo_evento/?id={{ valor.id }}">
+                                    <button type="button" class="btn btn-warning">ALTERAR</button>
+                                </a>
+                                <a href="novo_evento/delete/{{ valor.id }}">
+                                    <button type="button" class="btn btn-danger">APAGAR</button>
+                                </a>
+                                <p></p>
+
                 </div>
             </li>
+
+
+
+
             {% endfor %}
         </ul>
     </p>
 
-<a href="/">
-            <button type="button">Voltar</button>
+        <a href="/">
+            <button type="button" class="btn btn-secondary">VOLTAR</button>
         </a>
 
 
