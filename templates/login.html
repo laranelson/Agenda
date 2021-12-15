@@ -1,23 +1,34 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Agenda</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
 </head>
 <body>
-        <div align="center">
-            <h1>Login</h1>
-            <form action="submit" method="POST">{% csrf_token %}
-                <label>Usuário:</label>
-                <input type="text" name="username"><p></p>
-                <label>Password:</label>
-                <input type="password" name="password"><p></p>
-                <button type="submit">Entrar</button>
-            </form>
+         <nav class="navbar navbar-expand-lg">
+                  <form action="submit" method="POST">{% csrf_token %}
+                        <div class="form-floating mb-3">
+                            <input type="text" name="username" class="form-control" id="floatingInput" placeholder="name@example.com">
+                            <label for="floatingInput">Usuário</label>
+                        </div>
+                        <div class="form-floating">
+                              <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
+                              <label for="floatingPassword">Senha</label>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-warning">ACESSAR</button>
+                </form>
+        </nav>
 
-            {% for message in messages %}
-                <strong>ERRO!!!</strong> {{ message }}
-            {% endfor %}
-        </div>
+                {% for message in messages %}
+             <div class="alert alert-warning" role="alert">
+                {{ message }}
+                {% endfor %}
+             </div>
+
 </body>
 </html>

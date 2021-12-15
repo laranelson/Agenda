@@ -2,27 +2,36 @@
 
 {% block content %}
 
-        <h2>Agendamentos</h2>
-        <a href="novo_evento/">
-        <button type="button">Novo Evento</button>
-        </a>
-        <a href="eventos_passado">
-            <button type="button">Histórico de Eventos</button>
-        </a>
-        <ul style="font-size: 18px">
-            {% for valor in chave %}
+    <ul style="font-size: 18px">
+        {% for valor in chave %}
             <li>
                 <div style={% if valor.get_evento_atrasado %}
                               "color:red"
                             {% elif valor.get_evento_falta_1h %}
                               "color:green"
                             {% endif %}>
-                    <b>Evento:</b> {{ valor.titulo }} - <b>Data:</b> {{ valor.get_data_evento }}
-                    ( <a href="novo_evento/?id={{ valor.id }}"> Editar</a>
-                    / <a href="novo_evento/delete/{{ valor.id }}">Excluir</a> )
+
+                            <b>{{ valor.titulo }}</b> - Data: {{ valor.get_data_evento }}
+
+                                <a href="novo_evento/?id={{ valor.id }}">
+                                    <button type="button" class="btn btn-warning">ALTERAR</button>
+                                </a>
+                                <a href="novo_evento/delete/{{ valor.id }}">
+                                    <button type="button" class="btn btn-danger">APAGAR</button>
+                                </a>
+                                <p></p>
+
                 </div>
             </li>
-            {% endfor %}
-        </ul>
+        {% endfor %}
+    </ul>
+
+    <a href="novo_evento/">
+        <button type="button" class="btn btn-success">AGENDAR EVENTO</button>
+    </a>
+
+    <a href="eventos_passado">
+        <button type="button" class="btn btn-secondary">LISTAR HISTÓRICO</button>
+    </a>
 
 {% endblock %}
