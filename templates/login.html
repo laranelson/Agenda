@@ -11,7 +11,17 @@
 <body>
          <nav class="navbar navbar-expand-lg">
                   <form action="submit" method="POST">{% csrf_token %}
-                        <div class="form-floating mb-3">
+
+
+                       <div class="d-flex align-items-center p-3 my-3 text-white bg-purple rounded shadow-sm" style="background-color: #2D1A57">
+                            <img src="{% static 'img/logo.png' %}" class="rounded-circle" width="60" height="60">
+                            <div class="lh-1 container">
+                                <span class="fs-4">Agenda Pessoal</span>
+                            </div>
+                       </div>
+
+
+                      <div class="form-floating mb-3">
                             <input type="text" name="username" class="form-control" id="floatingInput" placeholder="name@example.com">
                             <label for="floatingInput">Usuário</label>
                         </div>
@@ -25,10 +35,9 @@
         </nav>
 
                 {% for message in messages %}
-             <div class="alert alert-warning" role="alert">
-                {{ message }}
+                    <div class="alert alert-warning" role="alert">{{ message }}</div>
                 {% endfor %}
-             </div>
+
 
 </body>
 </html>
